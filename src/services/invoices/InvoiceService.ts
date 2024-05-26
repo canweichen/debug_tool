@@ -7,7 +7,7 @@ class InvoiceService {
 
   async getTransferData(data: string, page: number, pageSize: number) {
     const response = await fetch(
-      'http://localhost:3000/invoices?sql_=' +
+      'http://localhost:3000/api/invoices?sql_=' +
         data +
         '&page=' +
         page +
@@ -21,14 +21,14 @@ class InvoiceService {
 
   async getTransferDetail(id: number) {
     const response = await fetch(
-      'http://localhost:3000/transfer/detail?id=' + id + '&token=' + this.token
+      'http://localhost:3000/api/transfer/detail?id=' + id + '&token=' + this.token
     )
     return await response.json()
   }
 
   async getDriverList(id: string) {
     const response = await fetch(
-      'http://localhost:3000/driver/list?id=' + id + '&token=' + this.token
+      'http://localhost:3000/api/driver/list?id=' + id + '&token=' + this.token
     )
     return await response.json()
   }
@@ -43,7 +43,7 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/compareInvoices?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/compareInvoices?' + dataJson)
     return await response.json()
   }
 
@@ -57,7 +57,7 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/userRequest/list?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/userRequest/list?' + dataJson)
     return await response.json()
   }
 
@@ -72,24 +72,27 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/userRpcLog/list?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/userRpcLog/list?' + dataJson)
     return await response.json()
   }
 
   async getPaymentDetail(invoiceNumber: string) {
     const response = await fetch(
-      'http://localhost:3000/payment/detail?invoiceNum=' + invoiceNumber + '&token=' + this.token
+      'http://localhost:3000/api/payment/detail?invoiceNum=' +
+        invoiceNumber +
+        '&token=' +
+        this.token
     )
     return await response.json()
   }
 
   async getSummaryData() {
-    const response = await fetch('http://localhost:3000/summary/list?token=' + this.token)
+    const response = await fetch('http://localhost:3000/api/summary/list?token=' + this.token)
     return await response.json()
   }
 
   async recreateInvoice() {
-    const response = await fetch('http://localhost:3000/recreateInvoice?token=' + this.token)
+    const response = await fetch('http://localhost:3000/api/recreateInvoice?token=' + this.token)
     return await response.json()
   }
 
@@ -97,7 +100,7 @@ class InvoiceService {
     let dataJson = 'page=' + page
     dataJson += '&limit=' + limit
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/recreateInvoice/list?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/recreateInvoice/list?' + dataJson)
     return await response.json()
   }
 
@@ -105,7 +108,7 @@ class InvoiceService {
     let dataJson = 'page=' + page
     dataJson += '&limit=' + limit
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/location/list?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/location/list?' + dataJson)
     return await response.json()
   }
 
@@ -117,7 +120,7 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/quoteList?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/quoteList?' + dataJson)
     return await response.json()
   }
 
@@ -125,7 +128,7 @@ class InvoiceService {
     let dataJson = 'id=' + data.tms_pull_bnp_data_object_id
     dataJson += '&type=' + data.tms_pull_bnp_data_type
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/logDetail?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/logDetail?' + dataJson)
     return await response.json()
   }
 
@@ -136,7 +139,7 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/invoiceLog?' + dataJson)
+    const response = await fetch('http://localhost:3000/api/invoiceLog?' + dataJson)
     return await response.json()
   }
 
