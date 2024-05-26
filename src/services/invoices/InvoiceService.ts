@@ -1,3 +1,4 @@
+import HttpRequest from '@/utils/httpRequest'
 import loginService from './loginService'
 class InvoiceService {
   private token: string = ''
@@ -6,31 +7,22 @@ class InvoiceService {
   }
 
   async getTransferData(data: string, page: number, pageSize: number) {
-    const response = await fetch(
-      'http://localhost:3000/api/invoices?sql_=' +
-        data +
-        '&page=' +
-        page +
-        '&limit=' +
-        pageSize +
-        '&token=' +
-        this.token
-    )
-    return await response.json()
+    const dataJson =
+      'sql_=' + data + '&page=' + page + '&limit=' + pageSize + '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.syncInvoiceToBnp, dataJson)
+    return await response
   }
 
   async getTransferDetail(id: number) {
-    const response = await fetch(
-      'http://localhost:3000/api/transfer/detail?id=' + id + '&token=' + this.token
-    )
-    return await response.json()
+    const dataJson = 'id=' + id + '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.BNPLogDetail, dataJson)
+    return await response
   }
 
   async getDriverList(id: string) {
-    const response = await fetch(
-      'http://localhost:3000/api/driver/list?id=' + id + '&token=' + this.token
-    )
-    return await response.json()
+    const dataJson = 'id=' + id + '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.driverList, dataJson)
+    return await response
   }
 
   async getCompareBalanceList(data: any, page: number, pageSize: number) {
@@ -43,8 +35,8 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/compareInvoices?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.compareBalance, dataJson)
+    return await response
   }
 
   async getUserRequestData(requestData: any, page: number, pageSize: number) {
@@ -57,8 +49,8 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/userRequest/list?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.userRequestLog, dataJson)
+    return await response
   }
 
   async getUserRpcLogData(requestData: any, page: number, pageSize: number) {
@@ -72,44 +64,42 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/userRpcLog/list?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.userRpcLog, dataJson)
+    return await response
   }
 
   async getPaymentDetail(invoiceNumber: string) {
-    const response = await fetch(
-      'http://localhost:3000/api/payment/detail?invoiceNum=' +
-        invoiceNumber +
-        '&token=' +
-        this.token
-    )
-    return await response.json()
+    const dataJson = 'invoiceNum=' + invoiceNumber + '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.invoicePayment, dataJson)
+    return await response
   }
 
   async getSummaryData() {
-    const response = await fetch('http://localhost:3000/api/summary/list?token=' + this.token)
-    return await response.json()
+    const dataJson = 'token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.summary, dataJson)
+    return await response
   }
 
   async recreateInvoice() {
-    const response = await fetch('http://localhost:3000/api/recreateInvoice?token=' + this.token)
-    return await response.json()
+    const dataJson = 'token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.recreateInvoice, dataJson)
+    return await response
   }
 
   async getRecreateInvoiceList(page: number, limit: number) {
     let dataJson = 'page=' + page
     dataJson += '&limit=' + limit
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/recreateInvoice/list?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.recreateInvoiceList, dataJson)
+    return await response
   }
 
   async getLocationList(page: number, limit: number) {
     let dataJson = 'page=' + page
     dataJson += '&limit=' + limit
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/location/list?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.locationList, dataJson)
+    return await response
   }
 
   async getQuoteLogList(data: any, page: number, pageSize: number) {
@@ -120,16 +110,16 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/quoteList?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.quoteList, dataJson)
+    return await response
   }
 
   async getQuoteDetails(data: any) {
     let dataJson = 'id=' + data.tms_pull_bnp_data_object_id
     dataJson += '&type=' + data.tms_pull_bnp_data_type
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/logDetail?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.quoteLogDetail, dataJson)
+    return await response
   }
 
   async getInvoiceLogList(data: any, page: number, pageSize: number) {
@@ -139,8 +129,8 @@ class InvoiceService {
     dataJson += '&page=' + page
     dataJson += '&limit=' + pageSize
     dataJson += '&token=' + this.token
-    const response = await fetch('http://localhost:3000/api/invoiceLog?' + dataJson)
-    return await response.json()
+    const response = HttpRequest.get(HttpRequest.path.invoiceLog, dataJson)
+    return await response
   }
 
   testCompareInvoices(params: any, page: number, limit: number) {
