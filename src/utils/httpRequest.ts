@@ -16,7 +16,8 @@ class HttpRequest {
     recreateInvoiceList: 'api/recreateInvoice/list',
     locationList: 'api/location/list',
     quoteList: 'api/quoteList',
-    quoteLogDetail: 'api/logDetail'
+    quoteLogDetail: 'api/logDetail',
+    accList: 'api/bnp/acc/List'
   }
   constructor() {}
   public static async post(url: string, data: any) {

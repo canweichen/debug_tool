@@ -25,6 +25,18 @@ class InvoiceService {
     return await response
   }
 
+  async getAccList() {
+    const dataJson = 'token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.accList, dataJson)
+    return await response
+  }
+
+  generateAccListExcel() {
+    const dataJson = 'token=' + this.token + '&download=1'
+    const url = HttpRequest.host + HttpRequest.path.accList
+    window.open(url + '?' + dataJson)
+  }
+
   async getCompareBalanceList(data: any, page: number, pageSize: number) {
     let dataJson = 'ar_id=' + data.ar_id
     dataJson += '&order_id=' + data.order_id
@@ -37,6 +49,21 @@ class InvoiceService {
     dataJson += '&token=' + this.token
     const response = HttpRequest.get(HttpRequest.path.compareBalance, dataJson)
     return await response
+  }
+
+  generateExcel(requestData: any, page: number, pageSize: number) {
+    let dataJson = 'ar_id=' + requestData.ar_id
+    dataJson += '&order_id=' + requestData.order_id
+    dataJson += '&start_date=' + requestData.start_date
+    dataJson += '&end_date=' + requestData.end_date
+    dataJson += '&invoice_num=' + requestData.invoice_num
+    dataJson += '&sort=' + requestData.sort
+    dataJson += '&download=1'
+    dataJson += '&page=' + page
+    dataJson += '&limit=' + pageSize
+    dataJson += '&token=' + this.token
+    const url = HttpRequest.host + HttpRequest.path.compareBalance
+    window.open(url + '?' + dataJson)
   }
 
   async getUserRequestData(requestData: any, page: number, pageSize: number) {

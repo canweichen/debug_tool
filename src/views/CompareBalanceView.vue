@@ -187,16 +187,8 @@ function handleCurrentChange(val: number) {
 }
 
 function generateExcel() {
-  let dataJson = 'ar_id=' + requestData.ar_id
-  dataJson += '&order_id=' + requestData.order_id
-  dataJson += '&start_date=' + requestData.start_date
-  dataJson += '&end_date=' + requestData.end_date
-  dataJson += '&invoice_num=' + requestData.invoice_num
-  dataJson += '&sort=' + requestData.sort
-  dataJson += '&download=1'
-  dataJson += '&page=' + currentPage4.value
-  dataJson += '&limit=' + pageSize4.value
-  window.open('http://localhost:3000/compareInvoices?' + dataJson)
+  const invoiceSer = new InvoiceService()
+  invoiceSer.generateExcel(requestData, currentPage4.value, pageSize4.value)
 }
 
 function handleDetail(row: any) {

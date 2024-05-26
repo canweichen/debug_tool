@@ -9,6 +9,7 @@ import UserRpcLog from '@/views/records/UserRpcLogView.vue'
 import TimerTool from '@/views/tools/TimerToolView.vue'
 import LocationTimerTool from '@/views/tools/LocationTimerToolView.vue'
 import SyncTripToBNP from '@/views/records/SyncTripToBNPView.vue'
+import AccList from '@/views/drivers/AccListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -85,6 +86,11 @@ const router = createRouter({
       path: '/logs/syncTripToBNP',
       name: 'syncTripToBNP',
       component: SyncTripToBNP
+    },
+    {
+      path: '/driver/acc/list',
+      name: 'AccList',
+      component: AccList
     }
   ]
 })

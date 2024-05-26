@@ -192,7 +192,10 @@ const menuList: MenuItem[] = [
     menu_id: 3,
     menu_name: 'Outbound API',
     menu_url: '',
-    sub_menu: [{ menu_id: 10005, menu_name: 'Driver', menu_url: '/driver/list', sub_menu: [] }]
+    sub_menu: [
+      { menu_id: 10005, menu_name: 'Driver', menu_url: '/driver/list', sub_menu: [] },
+      { menu_id: 10013, menu_name: 'Acc Setup', menu_url: '/driver/acc/list', sub_menu: [] }
+    ]
   },
   {
     menu_id: 4,
