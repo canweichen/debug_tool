@@ -45,7 +45,7 @@
       <el-header style="text-align: right; font-size: 12px">
         <div class="toolbar">
           <el-dropdown>
-            <el-icon style="margin-right: 8px; margin-top: 1px; color: white">
+            <el-icon style="margin-right: 8px; margin-top: 1px; font-size: 16px; color: white">
               <setting />
             </el-icon>
             <template #dropdown>
@@ -56,7 +56,10 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span>{{ username }}</span>
+          <span style="font-size: 16px">
+            <el-icon class="el-icon--left"><User /></el-icon>
+            {{ username }}
+          </span>
         </div>
       </el-header>
 
@@ -91,7 +94,10 @@ import {
   ChatLineRound,
   ChatLineSquare,
   View,
-  Unlock
+  Unlock,
+  Aim,
+  CirclePlus,
+  User
 } from '@element-plus/icons-vue'
 import loginService from '@/services/invoices/loginService'
 
@@ -208,6 +214,20 @@ const menuList: MenuItem[] = [
     menu_url: '',
     menu_icon: ChatRound,
     sub_menu: [
+      {
+        menu_id: '10014',
+        menu_name: 'Fail Invoice',
+        menu_url: '/invoice/fail/list',
+        menu_icon: Aim,
+        sub_menu: []
+      },
+      {
+        menu_id: '10015',
+        menu_name: 'Gira Ticket',
+        menu_url: '/gira/ticket/list',
+        menu_icon: CirclePlus,
+        sub_menu: []
+      },
       {
         menu_id: '10006',
         menu_name: 'Form',

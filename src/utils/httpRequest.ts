@@ -15,9 +15,14 @@ class HttpRequest {
     recreateInvoice: 'api/recreateInvoice',
     recreateInvoiceList: 'api/recreateInvoice/list',
     locationList: 'api/location/list',
+    syncLocation: 'api/sync/location',
     quoteList: 'api/quoteList',
     quoteLogDetail: 'api/logDetail',
-    accList: 'api/bnp/acc/List'
+    accList: 'api/bnp/acc/List',
+    addFailInvoice: 'api/invoice/fail/add',
+    getFailInvoice: 'api/invoice/fail/list',
+    addGiraTicket: 'api/gira/ticket/add',
+    getGiraTicket: 'api/gira/ticket/list'
   }
   constructor() {}
   public static async post(url: string, data: any) {

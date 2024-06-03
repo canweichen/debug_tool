@@ -47,8 +47,14 @@
   </div>
 
   <div class="mt-20">
-    <el-button type="primary" @click="getTableData">Search</el-button>
-    <el-button type="primary" @click="clearInput">Reset</el-button>
+    <el-button type="primary" @click="getTableData">
+      <el-icon class="el-icon--left"><Search /></el-icon>
+      Search
+    </el-button>
+    <el-button type="warning" @click="clearInput">
+      <el-icon class="el-icon--left"><SetUp /></el-icon>
+      Reset
+    </el-button>
   </div>
 
   <el-table
@@ -66,12 +72,18 @@
     >
       <template v-slot="scope">
         <!-- 使用作用域插槽的参数scope来访问行数据 -->
-        <span v-if="item.prop === 'tms_api_transfer_void'">
-          {{ scope.row[item.prop] == 1 ? 'Void' : 'Not Void' }}
-        </span>
-        <span v-if="item.prop === 'tms_api_transfer_status'">
-          {{ scope.row[item.prop] == 1 ? 'Done' : '' }}
-        </span>
+        <el-text
+          v-if="item.prop === 'tms_api_transfer_void'"
+          :type="scope.row[item.prop] == 1 ? 'danger' : 'success'"
+        >
+          {{ scope.row[item.prop] == 1 ? 'Void' : 'Active' }}
+        </el-text>
+        <el-text
+          v-if="item.prop === 'tms_api_transfer_status'"
+          :type="scope.row[item.prop] == 1 ? 'success' : 'primary'"
+        >
+          {{ scope.row[item.prop] == 1 ? 'Done' : 'Running' }}
+        </el-text>
         <span v-if="item.prop === 'ObjectID'">
           {{
             scope.row['tms_api_transfer_type'] === 'Trip Carrier'
@@ -84,22 +96,17 @@
                   : 0
           }}
         </span>
-        <el-button
-          v-if="item.prop === 'operations'"
-          size="small"
-          type="primary"
-          @click="handleEdit(scope.$index, scope.row)"
-        >
-          Detail
-        </el-button>
-        <el-button
-          v-if="item.prop === 'operations'"
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-        >
-          Delete
-        </el-button>
+        <el-col v-if="item.prop === 'operations'">
+          <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">
+            <el-icon class="el-icon--left"> <Edit /> </el-icon>
+            Detail
+          </el-button>
+        </el-col>
+        <el-col v-if="item.prop === 'operations'">
+          <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-icon class="el-icon--left"> <Delete /> </el-icon>Delete
+          </el-button>
+        </el-col>
       </template>
     </el-table-column>
   </el-table>
@@ -136,6 +143,7 @@ import HeaderTitle from '@/components/base/HeaderTitle.vue'
 import InvoiceService from '@/services/invoices/InvoiceService'
 import useLoading from '@/utils/popoupLoading'
 import PopupDialog from '@/components/utils/PopupDialog.vue'
+import { Delete, Search, Edit, SetUp } from '@element-plus/icons-vue'
 
 let state = reactive({
   invoiceData: [],

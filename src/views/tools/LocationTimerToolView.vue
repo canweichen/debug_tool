@@ -32,7 +32,7 @@
   </el-row>
 
   <div style="float: right; margin-top: 20px; margin-right: 120px; margin-bottom: 20px">
-    <el-button type="info" @click="getRecreateInvoiceTable">Search</el-button>
+    <el-button type="info" @click="getLocationList">Search</el-button>
     <el-button type="danger" @click="openAllPDF">Open All PDF</el-button>
     <el-button type="primary" v-loading="state.loading" @click="openTimer">Start Timer</el-button>
     <el-button type="warning" @click="toDo">Trigger Once</el-button>
@@ -64,17 +64,52 @@
     >
       <template v-slot="scope">
         <!-- 使用作用域插槽的参数scope来访问行数据 -->
-        <span v-if="item.prop === 'status'">
+        <el-text
+          v-if="item.prop === 'location_status'"
+          :type="scope.row[item.prop] == 1 ? 'success' : 'danger'"
+        >
+          {{ scope.row[item.prop] == 1 ? 'Active' : 'Inactive' }}
+        </el-text>
+        <el-text
+          v-if="item.prop === 'location_billto'"
+          :type="scope.row[item.prop] == 1 ? 'success' : 'danger'"
+        >
+          {{ scope.row[item.prop] == 1 ? 'Yes' : 'No' }}
+        </el-text>
+        <el-text
+          v-if="item.prop === 'location_shipper'"
+          :type="scope.row[item.prop] == 1 ? 'success' : 'danger'"
+        >
+          {{ scope.row[item.prop] == 1 ? 'Yes' : 'No' }}
+        </el-text>
+        <el-text
+          v-if="item.prop === 'location_warehouse'"
+          :type="scope.row[item.prop] == 1 ? 'success' : 'danger'"
+        >
+          {{ scope.row[item.prop] == 1 ? 'Yes' : 'No' }}
+        </el-text>
+        <el-text
+          v-if="item.prop === 'location_carrier_type'"
+          :type="
+            scope.row[item.prop] == 1
+              ? 'success'
+              : scope.row[item.prop] == 2
+                ? 'warning'
+                : scope.row[item.prop] == 3
+                  ? 'primary'
+                  : 'danger'
+          "
+        >
           {{
-            scope.row[item.prop] == 1 ? 'Successed' : scope.row[item.prop] == 0 ? 'New' : 'Failed'
+            scope.row[item.prop] == 1
+              ? 'Delivery Agent'
+              : scope.row[item.prop] == 2
+                ? 'Broker Carrier'
+                : scope.row[item.prop] == 3
+                  ? 'Contract Carrier'
+                  : ''
           }}
-        </span>
-        <a v-if="item.prop === 'url'" :href="scope.row[item.prop]" target="_blank">
-          {{ scope.row[item.prop] }}
-        </a>
-        <span v-if="item.prop === 'sql_data'">
-          {{ scope.row[item.prop].split('VALUES')[1] }}
-        </span>
+        </el-text>
       </template>
     </el-table-column>
   </el-table>
@@ -118,29 +153,31 @@ const pageData = reactive({
 const pageTitle = ref('Location Timer Tool')
 const { openLoading, closeLoading } = useLoading()
 const tableHeaders = [
-  { prop: 'location_id', label: 'ID', width: 50 },
-  { prop: 'location_name', label: 'Name', width: 80 },
-  { prop: 'location_code', label: 'Code', width: 200 },
-  { prop: 'location_status', label: 'Status' },
+  { prop: 'location_id', label: 'ID', width: 80 },
+  { prop: 'location_code', label: 'Code', width: 120 },
+  { prop: 'location_name', label: 'Name', width: 300 },
+  { prop: 'location_status', label: 'Status', width: 100 },
+  { prop: 'location_shipper', label: 'IsShipper', width: 100 },
   { prop: 'location_billto', label: 'IsBillTo', width: 100 },
-  { prop: 'location_carrier_type', label: 'CarrierType' },
+  { prop: 'location_warehouse', label: 'IsTerminal', width: 100 },
+  { prop: 'location_terminal_type', label: 'TerminalType', width: 120 },
+  { prop: 'location_carrier_type', label: 'CarrierType', width: 100 },
   { prop: 'created_at', label: 'Created At', width: 100 },
   { prop: 'updated_at', label: 'Updated At', width: 100 }
 ]
 
 onMounted(() => {
   getSummaries()
-  getRecreateInvoiceTable()
+  getLocationList()
 })
 
 function toDo() {
   const invoiceSer = new InvoiceService()
-  invoiceSer.recreateInvoice().then(
+  invoiceSer.syncLocation().then(
     (result) => {
       if (result.status) {
         state.successedNumber += result.okNum
-        state.failedNumber += result.failNum
-        state.processedNumber -= result.okNum + result.failNum
+        state.totalNumber += result.okNum
       }
     },
     (error) => {
@@ -163,7 +200,7 @@ function openTimer() {
   state.loading = true
   state.timer = setInterval(() => {
     toDo()
-  }, 1000 * 180)
+  }, 1000 * 30)
 }
 
 function getSummaries() {
@@ -184,13 +221,13 @@ function getSummaries() {
 
 function handleSizeChange(val: number) {
   console.log(`${val} items per page`)
-  getRecreateInvoiceTable()
+  getLocationList()
 }
 function handleCurrentChange(val: number) {
   console.log(`current page: ${val}`)
-  getRecreateInvoiceTable()
+  getLocationList()
 }
-function getRecreateInvoiceTable() {
+function getLocationList() {
   openLoading()
   const invoiceSer = new InvoiceService()
   invoiceSer.getLocationList(pageData.currentPage, pageData.pageSize).then(

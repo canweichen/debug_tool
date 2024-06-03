@@ -1,5 +1,14 @@
 <template>
   <headerTitle :pageTitle="pageTitle" />
+  <el-calendar>
+    <template #date-cell="{ data }">
+      <p :class="data.isSelected ? 'is-selected' : ''">
+        {{ data.day.split('-').slice(1).join('-') }}
+        {{ data.isSelected ? '✔️' : '' }}
+      </p>
+    </template>
+  </el-calendar>
+
   <el-row>
     <el-col :span="6">
       <el-statistic title="Total Number" :value="state.totalNumber" />
@@ -116,5 +125,8 @@ function getSummaries() {
 .el-col {
   text-align: center;
   margin-top: 20px;
+}
+.is-selected {
+  color: #1989fa;
 }
 </style>

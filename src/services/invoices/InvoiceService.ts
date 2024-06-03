@@ -95,6 +95,42 @@ class InvoiceService {
     return await response
   }
 
+  async addGiraTicket(formData: any) {
+    const response = HttpRequest.post(HttpRequest.path.addGiraTicket, formData)
+    return await response
+  }
+
+  async getGiraTicket(requestData: any, page: number, pageSize: number) {
+    let dataJson = 'type=' + requestData.type
+    dataJson += '&status=' + requestData.status
+    dataJson += '&version=' + requestData.version
+    dataJson += '&start=' + requestData.start_date
+    dataJson += '&end=' + requestData.end_date
+    dataJson += '&page=' + page
+    dataJson += '&limit=' + pageSize
+    dataJson += '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.getGiraTicket, dataJson)
+    return await response
+  }
+
+  async addFailInvoice(formData: any) {
+    const response = HttpRequest.post(HttpRequest.path.addFailInvoice, formData)
+    return await response
+  }
+
+  async getFailInvoice(requestData: any, page: number, pageSize: number) {
+    let dataJson = 'aid=' + requestData.ar_id
+    dataJson += '&oid=' + requestData.order_id
+    dataJson += '&number=' + requestData.invoice_num
+    dataJson += '&start=' + requestData.start_date
+    dataJson += '&end=' + requestData.end_date
+    dataJson += '&page=' + page
+    dataJson += '&limit=' + pageSize
+    dataJson += '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.getFailInvoice, dataJson)
+    return await response
+  }
+
   async getPaymentDetail(invoiceNumber: string) {
     const dataJson = 'invoiceNum=' + invoiceNumber + '&token=' + this.token
     const response = HttpRequest.get(HttpRequest.path.invoicePayment, dataJson)
@@ -126,6 +162,12 @@ class InvoiceService {
     dataJson += '&limit=' + limit
     dataJson += '&token=' + this.token
     const response = HttpRequest.get(HttpRequest.path.locationList, dataJson)
+    return await response
+  }
+
+  async syncLocation() {
+    const dataJson = 'token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.syncLocation, dataJson)
     return await response
   }
 

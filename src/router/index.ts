@@ -10,6 +10,8 @@ import TimerTool from '@/views/tools/TimerToolView.vue'
 import LocationTimerTool from '@/views/tools/LocationTimerToolView.vue'
 import SyncTripToBNP from '@/views/records/SyncTripToBNPView.vue'
 import AccList from '@/views/drivers/AccListView.vue'
+import FailedInvoiceTool from '@/views/tools/FailedInvoiceToolView.vue'
+import GiraTicketTool from '@/views/tools/GiraTicketToolView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,6 +93,16 @@ const router = createRouter({
       path: '/driver/acc/list',
       name: 'AccList',
       component: AccList
+    },
+    {
+      path: '/invoice/fail/list',
+      name: 'FailInvoice',
+      component: FailedInvoiceTool
+    },
+    {
+      path: '/gira/ticket/list',
+      name: 'GiraTicket',
+      component: GiraTicketTool
     }
   ]
 })
