@@ -12,6 +12,8 @@ import SyncTripToBNP from '@/views/records/SyncTripToBNPView.vue'
 import AccList from '@/views/drivers/AccListView.vue'
 import FailedInvoiceTool from '@/views/tools/FailedInvoiceToolView.vue'
 import GiraTicketTool from '@/views/tools/GiraTicketToolView.vue'
+import TechknowledgeTool from '@/views/tools/TechknowledgeToolView.vue'
+import TripTerminal from '@/views/trips/TripTerminalView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -103,6 +105,16 @@ const router = createRouter({
       path: '/gira/ticket/list',
       name: 'GiraTicket',
       component: GiraTicketTool
+    },
+    {
+      path: '/techknowledge/list',
+      name: 'Techknowledge',
+      component: TechknowledgeTool
+    },
+    {
+      path: '/trip/terminal/list',
+      name: 'TripTerminal',
+      component: TripTerminal
     }
   ]
 })

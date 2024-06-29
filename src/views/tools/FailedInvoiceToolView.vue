@@ -56,6 +56,17 @@
       :prop="item.prop"
       :label="item.label"
     >
+      <template v-slot="scope">
+        <!-- 使用作用域插槽的参数scope来访问行数据 -->
+        <el-button
+          type="text"
+          v-if="item.prop === 'ar_id'"
+          @click="copyToClipboard(scope.row[item.prop])"
+        >
+          <el-icon> <CopyDocument /> </el-icon>
+          {{ scope.row[item.prop] }}
+        </el-button>
+      </template>
     </el-table-column>
   </el-table>
 
@@ -114,6 +125,7 @@ import HeaderTitle from '@/components/base/HeaderTitle.vue'
 import InvoiceService from '@/services/invoices/InvoiceService'
 import useLoading from '@/utils/popoupLoading'
 import { ElMessage, type FormInstance } from 'element-plus'
+import { CopyDocument } from '@element-plus/icons-vue'
 
 const pageTitle = ref('Failed Invoice')
 const invoiceFormData = ref<FormInstance>()
@@ -233,6 +245,16 @@ function getTableData() {
       closeLoading()
     }
   )
+}
+
+function copyToClipboard(text: string) {
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand('copy')
+  document.body.removeChild(textarea)
+  ElMessage.success('Copy successfully')
 }
 
 function clearInput() {

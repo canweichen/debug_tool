@@ -22,7 +22,10 @@ class HttpRequest {
     addFailInvoice: 'api/invoice/fail/add',
     getFailInvoice: 'api/invoice/fail/list',
     addGiraTicket: 'api/gira/ticket/add',
-    getGiraTicket: 'api/gira/ticket/list'
+    getGiraTicket: 'api/gira/ticket/list',
+    addTechknowledge: 'api/tech/add',
+    getTechknowledge: 'api/tech/list',
+    getTripTerminalList: 'api/trip/termina/list'
   }
   constructor() {}
   public static async post(url: string, data: any) {

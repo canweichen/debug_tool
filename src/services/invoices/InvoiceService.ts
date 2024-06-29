@@ -95,6 +95,33 @@ class InvoiceService {
     return await response
   }
 
+  async addTechknowledge(formData: any) {
+    const response = HttpRequest.post(HttpRequest.path.addTechknowledge, formData)
+    return await response
+  }
+
+  async getTechknowledge(requestData: any, page: number, pageSize: number) {
+    let dataJson = 'type=' + requestData.type
+    dataJson += '&start=' + requestData.start_date
+    dataJson += '&end=' + requestData.end_date
+    dataJson += '&page=' + page
+    dataJson += '&limit=' + pageSize
+    dataJson += '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.getTechknowledge, dataJson)
+    return await response
+  }
+
+  async getTripTerminalList(requestData: any, page: number, pageSize: number) {
+    let dataJson = 'type=' + requestData.type
+    dataJson += '&start=' + requestData.start_date
+    dataJson += '&end=' + requestData.end_date
+    dataJson += '&page=' + page
+    dataJson += '&limit=' + pageSize
+    dataJson += '&token=' + this.token
+    const response = HttpRequest.get(HttpRequest.path.getTripTerminalList, dataJson)
+    return await response
+  }
+
   async addGiraTicket(formData: any) {
     const response = HttpRequest.post(HttpRequest.path.addGiraTicket, formData)
     return await response

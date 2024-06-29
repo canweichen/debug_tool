@@ -45,6 +45,15 @@
       placeholder="Please pick end date"
       value-format="YYYY-MM-DD"
     />
+
+    <span class="pl-10 pr-5">Hotkey</span>
+    <el-select-v2
+      v-model="requestData.hotkey"
+      placeholder="Please select hotkey"
+      :options="hotkeyOptions"
+      style="width: 360px"
+      @change="handleHotkeyChange"
+    />
   </div>
 
   <div class="mt-20">
@@ -156,8 +165,83 @@ const requestData = reactive({
   db_id: 2,
   body_keyword: '',
   id: '54970070',
-  sort: 0
+  sort: 0,
+  hotkey: ''
 })
+const hotkeyOptions = [
+  {
+    value: 'All',
+    label: 'Select All'
+  },
+  {
+    value: 'https://tms.freightapp.com/api/sync/syncCarrierLocationFromBnp',
+    label: 'syncCarrierLocationFromBnp'
+  },
+  {
+    value: 'https://tms.freightapp.com/apinew/bnp/account/customer',
+    label: 'syncCustomerFromBnp'
+  },
+  {
+    value: '/v2//traceOrder/index.php',
+    label: '/v2//traceOrder/index.php'
+  },
+  {
+    value: 'v2/calcQuote/index.php',
+    label: 'v2/calcQuote/index.php'
+  },
+  {
+    value: 'write_epro_v3.php',
+    label: 'write_epro_v3.php'
+  },
+  {
+    value: 'write_tms_ap_carrier_amount.php',
+    label: 'write_tms_ap_carrier_amount.php'
+  },
+  {
+    value: 'write_tms_ap_carrier_invoice.php',
+    label: 'write_tms_ap_carrier_invoice.php'
+  },
+  {
+    value: 'write_tms_ap_invoice.php',
+    label: 'write_tms_ap_invoice.php'
+  },
+  {
+    value: 'write_tms_ap_invoice_status.php',
+    label: 'write_tms_ap_invoice_status.php'
+  },
+  {
+    value: 'write_tms_update_dispatch.php',
+    label: 'write_tms_update_dispatch.php'
+  },
+  {
+    value: 'handleCarrierShoppingRateResponse',
+    label: 'handleCarrierShoppingRateResponse'
+  },
+  {
+    value: 'SmallParcel/Shipment/V2/Wise/Tracking/Status',
+    label: 'SmallParcel/Shipment/V2/Wise/Tracking/Status'
+  },
+  {
+    value: 'PayAndBillAPI/api/Invoice/InsertInvoiceAR',
+    label: 'PayAndBillAPI/api/Invoice/InsertInvoiceAR'
+  },
+  {
+    value: 'PayAndBillAPI/api/RateEngine/CalculateCustomerTariff',
+    label: 'PayAndBillAPI/api/RateEngine/CalculateCustomerTariff'
+  },
+  {
+    value: 'PayAndBillAPI/api/RateEngine/CalculateTMSUnis100Cost',
+    label: 'PayAndBillAPI/api/RateEngine/CalculateTMSUnis100Cost'
+  },
+  {
+    value: 'AP/order/delApLine',
+    label: 'AP/order/delApLine'
+  },
+  {
+    value: 'paymentBill/GetDeliveryAgentPayTotalAmount',
+    label: 'paymentBill/GetDeliveryAgentPayTotalAmount'
+  }
+]
 const options = [
   {
     value: 1,
@@ -231,6 +315,15 @@ function getNowTime() {
   requestData.start_date = `${year}-${month}-${date}`
 }
 
+function handleHotkeyChange() {
+  if (requestData.hotkey === 'All') {
+    requestData.url_keyword = ''
+    return false
+  }
+  requestData.url_keyword = requestData.hotkey
+  return true
+}
+
 function getUserRequestData() {
   openLoading()
 
@@ -252,8 +345,10 @@ function getUserRequestData() {
 function clearInput() {
   requestData.url_keyword = ''
   requestData.body_keyword = ''
+  requestData.id = ''
   requestData.start_date = ''
   requestData.end_date = ''
+  requestData.hotkey = 'All'
 }
 </script>
 

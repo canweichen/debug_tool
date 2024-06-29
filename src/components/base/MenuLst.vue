@@ -229,6 +229,13 @@ const menuList: MenuItem[] = [
         sub_menu: []
       },
       {
+        menu_id: '10017',
+        menu_name: 'Techknowledge',
+        menu_url: '/techknowledge/list',
+        menu_icon: Connection,
+        sub_menu: []
+      },
+      {
         menu_id: '10006',
         menu_name: 'Form',
         menu_url: '/about',
@@ -254,6 +261,21 @@ const menuList: MenuItem[] = [
         menu_name: 'LocationTimerTool',
         menu_url: '/tools/location',
         menu_icon: Unlock,
+        sub_menu: []
+      }
+    ]
+  },
+  {
+    menu_id: '5',
+    menu_name: 'Finance Manager',
+    menu_url: '',
+    menu_icon: ChatLineRound,
+    sub_menu: [
+      {
+        menu_id: '10018',
+        menu_name: 'Trip',
+        menu_url: '/trip/terminal/list',
+        menu_icon: Connection,
         sub_menu: []
       }
     ]

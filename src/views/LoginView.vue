@@ -1,6 +1,7 @@
 <template>
   <div v-if="true" class="full-page-background">
     <el-form ref="loginForm" class="login-form" :model="user">
+      <el-text style="font-size: 20px; color: white">Tools Center Login</el-text>
       <el-form-item
         prop="username"
         :rules="[
@@ -36,7 +37,7 @@ import type { FormInstance } from 'element-plus'
 
 const loginForm = ref<FormInstance>()
 const user = reactive({
-  username: '',
+  username: 'alex.chen@unisco.com',
   password: ''
 })
 //提交form表单到后台
@@ -67,6 +68,17 @@ async function submitForm(formData: any) {
     const UserName = data.UserFirstLast
     console.log(btoa(UserID + ':' + UserToken))
     if (response.ok) {
+      if (
+        UserToken == '' ||
+        UserID == '' ||
+        UserToken == null ||
+        UserID == null ||
+        UserToken == undefined ||
+        UserID == undefined
+      ) {
+        ElMessage.error('Oops, your username or password is incorrect.')
+        return
+      }
       // 处理登录成功的逻辑
       sessionStorage.setItem(
         'user-token',

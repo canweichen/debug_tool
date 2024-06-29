@@ -13,6 +13,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "element-plus": "^2.7.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
